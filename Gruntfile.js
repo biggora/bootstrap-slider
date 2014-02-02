@@ -139,7 +139,7 @@ module.exports = function(grunt) {
       },
       production: {
         files: {
-         '<%= pkg.gruntConfig.dist.css %>': '<%= pkg.gruntConfig.less.slider %>',
+         '<%= pkg.gruntConfig.dist.css %>': '<%= pkg.gruntConfig.less.slider %>'
         }
       },
       "production-min": {
