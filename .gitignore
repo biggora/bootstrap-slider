@@ -4,6 +4,6 @@
 /validation-report.json
 /validation-status.json
 /_Gruntfile.js
-/spec/
-/tpl/
-/dist/
+/spec
+/tpl
+/dist
