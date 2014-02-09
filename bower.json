@@ -31,6 +31,9 @@
     "tests",
     "src",
     "demo",
+    "dist",
+    "spec",
+    "tpl",
     "Gruntfile.js"
   ]
 }
