@@ -1,28 +1,36 @@
 {
-  "name": "seiyria-bootstrap-slider",
-  "version": "1.9.0",
+  "name": "bs-slider",
+  "version": "2.0.0",
   "dependencies": {
     "jquery": "",
     "bootstrap": "",
     "modernizr": ""
   },
-  "homepage": "https://github.com/seiyria/bootstrap-slider",
+  "homepage": "https://github.com/biggora/bootstrap-slider",
   "authors": [
+    "Stefan Petre <http://www.eyecon.ro/>",
     "Kyle Kemp <kyle@seiyria.com>",
-    "Rohit Kalkur <rohit.kalkur@gmail.com>"
+    "Rohit Kalkur <rohit.kalkur@gmail.com>",
+    "Alexey Gordeyev <https://github.com/biggora>"
   ],
-  "description": "a slider element for bootstrap 2/3",
-  "main": "js/bootstrap-slider.js",
+  "description": "A slider element for Twitter Bootstrap",
+  "main": [
+       "./js/bootstrap-slider.js",
+       "./css/bootstrap-slider.css"
+  ],
   "keywords": [
     "slider",
-    "bootstrap2",
-    "bootstrap3",
     "bootstrap"
   ],
-  "license": "MIT",
+  "license": "Apache",
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components"
+    "bower_components",
+    "test",
+    "tests",
+    "src",
+    "demo",
+    "Gruntfile.js"
   ]
 }

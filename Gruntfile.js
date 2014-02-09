@@ -1,174 +1,179 @@
-/*global module:false*/
+/*!
+ * Bootstrap Slider's Gruntfile
+ * Copyright 2014 Alexey Gordeyev
+ * Licensed under MIT (https://github.com/biggora/bootstrap-select/blob/master/LICENSE)
+ */
 module.exports = function(grunt) {
+    'use strict';
 
-  // Project configuration.
-  grunt.initConfig({
-    // Metadata.
-    pkg: grunt.file.readJSON('package.json'),
-    // Task configuration.
-    uglify: {
-      dist: {
-        src: '<%= pkg.main %>',
-        dest: '<%= pkg.gruntConfig.dist.js %>'
-      }
-    },
-    jshint: {
-      options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: false,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        unused: true,
-        boss: true,
-        eqnull: true,
-        browser: true,
-        globals: {
-          $ : true,
-          Modernizr : true
-        }
-      },
-      gruntfile: {
-        src: 'Gruntfile.js'
-      },
-      js: {
-        src: '<%= pkg.main %>'
-      },
-      spec : {
-        src: '<%= pkg.gruntConfig.spec %>',
-        options : {
-          globals : {
-            console: false,
-            $: false,
-            _: false,
-            _V_: false,
-            afterEach: false,
-            beforeEach: false,
-            confirm: false,
-            context: false,
-            describe: false,
-            expect: false,
-            it: false,
-            jasmine: false,
-            JSHINT: false,
-            mostRecentAjaxRequest: false,
-            qq: false,
-            runs: false,
-            spyOn: false,
-            spyOnEvent: false,
-            waitsFor: false,
-            xdescribe: false
-          }
-        }
-      }
-    },
-    jasmine : {
-      src : '<%= pkg.main %>',
-      options : {
-        specs : '<%= pkg.gruntConfig.spec %>',
-        vendor : ['<%= pkg.gruntConfig.js.jquery %>'],
-        styles : ['<%= pkg.gruntConfig.css.bootstrap %>', '<%= pkg.gruntConfig.css.slider %>'],
-        template : '<%= pkg.gruntConfig.tpl.SpecRunner %>'
-      }
-    },
-    template : {
-      'generate-index-page' : {
-        options : {
-          data : {
-            js : {
-              modernizr : '<%= pkg.gruntConfig.js.modernizr %>',
-              jquery : '<%= pkg.gruntConfig.js.jquery %>',
-              slider : '<%= pkg.main %>'
+    // Force use of Unix newlines
+    grunt.util.linefeed = '\n';
+    grunt.file.defaultEncoding = 'utf8';
+
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        banner: '/*!\n' +
+                ' * Bootstrap Slider v<%= pkg.version %> (<%= pkg.homepage %>)\n' +
+                ' * Copyright 2013-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
+                ' * Licensed under <%= _.pluck(pkg.licenses, "type") %> (<%= _.pluck(pkg.licenses, "url") %>)\n' +
+                ' * Plugin demo <%= pkg.demopage %>\n' +
+                ' */\n',
+        jqueryCheck: 'if (typeof jQuery === \'undefined\') { throw new Error(\'Bootstrap\\\'s JavaScript requires jQuery\') }\n\n',
+        clean: {
+            js: 'js/<%= pkg.name %>.min.js',
+            css: 'css/*'
+        },
+        concat: {
+            css: {
+                options: {
+                    banner: '<%= banner %>'
+                },
+                src: ['src/<%= pkg.name %>.css'],
+                dest: 'css/<%= pkg.name %>.css'
             },
-            css : {
-              bootstrap : '<%= pkg.gruntConfig.css.bootstrap %>',
-              slider : '<%= pkg.gruntConfig.css.slider %>'
+            js: {
+                options: {
+                    banner: '<%= banner %>'
+                },
+                src: ['src/<%= pkg.name %>.js'],
+                dest: 'js/<%= pkg.name %>.js'
             }
-          }
         },
-        files : {
-          'index.html' : ['<%= pkg.gruntConfig.tpl.index %>']
-        }
-      }
-    },
-    watch: {
-      js : {
-        files: '<%= pkg.main %>',
-        tasks: ['jshint:js', 'jasmine']
-      },
-      gruntfile : {
-        files: '<%= jshint.gruntfile %>',
-        tasks: ['jshint:gruntfile']
-      },
-      spec : {
-        files: '<%= jshint.spec %>',
-        tasks: ['jshint:spec']
-      },
-      css : {
-        files: '<%= pkg.gruntConfig.less.slider %>',
-        tasks: ['less:development']
-      },
-      index : {
-        files: '<%= pkg.gruntConfig.tpl.index %>',
-        tasks: ['template:generate-index-page']
-      }
-    },
-    connect: {
-      server: {
-        options: {
-          port: "<%= pkg.gruntConfig.devPort %>"
-        }
-      }
-    },
-    open : {
-      development : {
-        path: 'http://localhost:<%= connect.server.options.port %>'
-      }
-    },
-    less: {
-      options: {
-        paths: ["bower_components/bootstrap/less"]
-      },
-      development: {
-        files: {
-          '<%= pkg.gruntConfig.css.slider %>': '<%= pkg.gruntConfig.less.slider %>'
-        }
-      },
-      production: {
-        files: {
-         '<%= pkg.gruntConfig.dist.css %>': '<%= pkg.gruntConfig.less.slider %>'
-        }
-      },
-      "production-min": {
-        options: {
-          yuicompress: true
+        uglify: {
+            options: {
+                report: 'min',
+                banner: '<%= banner %>'
+            },
+            build: {
+                src: 'src/<%= pkg.name %>.js',
+                dest: 'js/<%= pkg.name %>.min.js'
+            }
         },
-        files: {
-         '<%= pkg.gruntConfig.dist.cssMin %>': '<%= pkg.gruntConfig.less.slider %>'
+        cssmin: {
+            compress: {
+                options: {
+                    cleancss: true,
+                    keepSpecialComments: '*',
+                    noAdvanced: true, // turn advanced optimizations off until it's fixed in clean-css
+                    report: 'min',
+                    selectorsMergeMode: 'ie8'
+                },
+                src: 'css/<%= pkg.name %>.css',
+                dest: 'css/<%= pkg.name %>.min.css'
+            }
+        },
+        less: {
+            compile: {
+                options: {
+                    cleancss: false,
+                    compress: false,
+                    strictMath: false,
+                    sourceMap: true,
+                    outputSourceFiles: true,
+                    sourceMapURL: '<%= pkg.name %>.css.map',
+                    sourceMapFilename: 'css/<%= pkg.name %>.css.map'
+                },
+                files: {
+                    'css/<%= pkg.name %>.css': 'less/<%= pkg.name %>.less'
+                }
+            }
+        },
+        usebanner: {
+            css: {
+                options: {
+                    position: 'top',
+                    banner: '<%= banner %>',
+                    linebreak: true
+                },
+                files: {
+                    src: ['css/<%= pkg.name %>.css']
+                }
+            }
+        },
+        csslint: {
+            options: {
+                csslintrc: 'src/.csslintrc'
+            },
+            src: [
+                'css/<%= pkg.name %>.css'
+            ]
+        },
+        jshint: {
+            options: {
+                jshintrc: 'src/.jshintrc'
+            },
+            src: {
+                src: 'js/*.js'
+            }
+        },
+        jscs: {
+            options: {
+                config: 'src/.jscs.json'
+            },
+            src: {
+                src: 'js/*.js'
+            }
+        },
+        validation: {
+            options: {
+                charset: 'utf-8',
+                doctype: 'HTML5',
+                failHard: true,
+                reset: true,
+                relaxerror: [
+                    'Bad value X-UA-Compatible for attribute http-equiv on element meta.',
+                    'Element img is missing required attribute src.'
+                ]
+            },
+            files: {
+                src: 'demo/*.html'
+            }
+        },
+        qunit: {
+            options: {
+                inject: 'tests/unit/phantom.js'
+            },
+            files: 'tests/*.html'
+        },
+        connect: {
+            server: {
+                options: {
+                    port: 3000,
+                    base: '.'
+                }
+            }
+        },
+        /*
+         'saucelabs-qunit': {
+         all: {
+         options: {
+         build: process.env.TRAVIS_JOB_ID,
+         concurrency: 10,
+         urls: ['http://127.0.0.1:3000/js/tests/index.html'],
+         browsers: grunt.file.readYAML('test-infra/sauce_browsers.yml')
+         }
+         }
+         }, */
+        exec: {
+            npmUpdate: {
+                command: 'npm update'
+            },
+            npmShrinkWrap: {
+                command: 'npm shrinkwrap --dev'
+            }
         }
-      }
-    }
-  });
+    });
 
+    // These plugins provide necessary tasks.
+    require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
 
-  // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-open');
-  grunt.loadNpmTasks('grunt-template');
-  grunt.loadNpmTasks('grunt-contrib-less');
+    // A very basic default task.
+    grunt.registerTask('help', 'Log some stuff.', function() {
+        grunt.log.write('Logging some stuff...').ok();
+    });
 
-  // Default task.
-  grunt.registerTask('test', ['jshint', 'jasmine']);
-  grunt.registerTask('build', ['less:development', 'test', 'template']);
-  grunt.registerTask('development', ['connect', 'open:development', 'watch']);
-  grunt.registerTask('production', ['less:production', 'less:production-min', 'test', 'uglify']);
-  grunt.registerTask('dev', 'development');
-  grunt.registerTask('dist', 'production');
+    grunt.registerTask('build-js', ['clean:js', 'concat:js', 'jshint', 'jscs', 'uglify']);
+    grunt.registerTask('build-css', ['clean:css', 'less', 'usebanner', 'csslint', 'cssmin']);
+    grunt.registerTask('build', ['clean', 'concat', 'less', 'jshint', 'jscs', 'csslint', 'usebanner', 'uglify', 'cssmin', 'validation']);
+    grunt.registerTask('build-all', 'build');
 };

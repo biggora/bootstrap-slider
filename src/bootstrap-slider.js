@@ -1,9 +1,3 @@
-/*!
- * Bootstrap Slider v2.0.0 (https://github.com/biggora/bootstrap-slider)
- * Copyright 2013-2014 Stefan Petre
- * Licensed under Apache (https://github.com/biggora/bootstrap-slider/blob/master/LICENSE)
- * Plugin demo http://plugins.upbootstrap.com/bootstrap-slider
- */
 
 !function($) {
     'use strict';

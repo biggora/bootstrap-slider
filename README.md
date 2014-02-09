@@ -64,3 +64,40 @@ Events
 | slideChange | This event fires when the slider value changes via slider.setValue() |
 | slideEnabled | This event fires when the slider is enabled |
 | slideDisabled | This event fires when the slider is disabled |
+
+
+### Recommend extensions
+
+- [Bootstrap Ajax Typeahead Plugin](https://github.com/biggora/bootstrap-ajax-typeahead)
+- [Bootstrap Fancy File Plugin](https://github.com/biggora/bootstrap-fancyfile/)
+- [Bootstrap Select Plugin](https://github.com/biggora/bootstrap-select/)
+- [TrinteJS - Javascrpt MVC Framework for Node.JS](http://www.trintejs.com/)
+- [CaminteJS - Cross-db ORM for NodeJS](http://www.camintejs.com/)
+- [MongoDB Session Storage for ExpressJS](https://github.com/biggora/express-mongodb)
+- [Middleware exposing user-agent for NodeJS](https://github.com/biggora/express-useragent)
+- [2CO NodeJS adapter for 2checkout API payment gateway](https://github.com/biggora/2co)
+
+Copyright and license
+-------
+The Apache 2.0 License (Apache)
+
+Copyright (c) 2013-2014 Stefan Petre
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING, SOFTWARE
+DISTRIBUTED UNDER THE LICENSE IS DISTRIBUTED ON AN "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+SEE THE LICENSE FOR THE SPECIFIC LANGUAGE GOVERNING PERMISSIONS AND
+LIMITATIONS UNDER THE LICENSE.
+
+## Resources
+
+- Visit the [author website](http://www.gordejev.lv).
+- Follow [@biggora](https://twitter.com/#!/biggora) on Twitter for updates.
+- Report issues on the [github issues](https://github.com/biggora/bootstrap-slider/issues) page.
+

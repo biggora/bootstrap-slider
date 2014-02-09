@@ -1,4 +1,9 @@
-node_modules
-bower_components
-/css
-nbproject
+/nbproject
+/node_modules
+/bower_components
+/validation-report.json
+/validation-status.json
+/_Gruntfile.js
+/spec/
+/tpl/
+/dist/
