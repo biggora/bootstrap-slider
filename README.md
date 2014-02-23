@@ -101,3 +101,7 @@ LIMITATIONS UNDER THE LICENSE.
 - Follow [@biggora](https://twitter.com/#!/biggora) on Twitter for updates.
 - Report issues on the [github issues](https://github.com/biggora/bootstrap-slider/issues) page.
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/biggora/bootstrap-slider/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
